@@ -115,7 +115,12 @@ export function publishAll(questions: Question[]): Question[] {
  * are the same type. They can be any type, as long as they are all the SAME type.
  */
 export function sameType(questions: Question[]): boolean {
-    return false;
+    let isSame = questions.reduce((counter: number, question: Question) => (question.type === "multiple_choice_question") ? counter +1 : counter -1, 0)
+    
+    if (isSame === questions.length || isSame === (-1 * questions.length)) {
+        return true
+    }
+    return false
 }
 
 /***
