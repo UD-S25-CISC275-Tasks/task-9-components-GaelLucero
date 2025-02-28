@@ -1,4 +1,6 @@
+
 import { Answer } from "./interfaces/answer";
+"Task-7/task-7-nested-data-GaelLucero/src/interfaces/answer.ts"
 import { Question, QuestionType } from "./interfaces/question";
 
 /**
@@ -84,7 +86,9 @@ id,name,options,points,published
  * Check the unit tests for more examples!
  */
 export function toCSV(questions: Question[]): string {
-    return "";
+    let header = "id,name,options,points,published"
+    let data = questions.reduce((message: string, question: Question) => message + "\n" + question.id.toString() + "," + question.name + "," + question.options.length.toString() + "," + question.points.toString() + "," + question.published, "")
+    return header + data;
 }
 
 /**
@@ -93,7 +97,8 @@ export function toCSV(questions: Question[]): string {
  * making the `text` an empty string, and using false for both `submitted` and `correct`.
  */
 export function makeAnswers(questions: Question[]): Answer[] {
-    return [];
+    let newAnswer: Answer[] = questions.map((question: Question) => ({questionId: question.id, text: "", submitted: false, correct:false}))
+    return newAnswer;
 }
 
 /***
@@ -101,7 +106,8 @@ export function makeAnswers(questions: Question[]): Answer[] {
  * each question is now published, regardless of its previous published status.
  */
 export function publishAll(questions: Question[]): Question[] {
-    return [];
+    let pubQuestion = questions.map((question: Question) => ({...question, published: true}))
+    return pubQuestion;
 }
 
 /***
