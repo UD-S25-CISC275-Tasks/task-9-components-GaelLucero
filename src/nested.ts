@@ -2,6 +2,7 @@
 import { Answer } from "./interfaces/answer";
 "Task-7/task-7-nested-data-GaelLucero/src/interfaces/answer.ts"
 import { Question, QuestionType } from "./interfaces/question";
+import { addOption, duplicateQuestion, makeBlankQuestion } from "./objects";
 
 /**
  * Consumes an array of questions and returns a new array with only the questions
@@ -134,7 +135,9 @@ export function addNewQuestion(
     name: string,
     type: QuestionType
 ): Question[] {
-    return [];
+    let newQuestion = makeBlankQuestion(id, name,type);
+    let copyQuestion: Question[] = [...questions, newQuestion]
+    return copyQuestion;
 }
 
 /***
@@ -147,7 +150,8 @@ export function renameQuestionById(
     targetId: number,
     newName: string
 ): Question[] {
-    return [];
+    let renameQuestion: Question[] = questions.map((question: Question) => ({...question, name: targetId === question.id ? newName : question.name}))
+    return renameQuestion;
 }
 
 /***
@@ -162,7 +166,8 @@ export function changeQuestionTypeById(
     targetId: number,
     newQuestionType: QuestionType
 ): Question[] {
-    return [];
+    let changedQuestion = questions.map((question : Question) => ({...question, options: ((targetId === question.id) && (question.type === "multiple_choice_question") ? [] : question.options) , type: (targetId === question.id) ? newQuestionType : question.type}))
+    return changedQuestion;
 }
 
 /**
@@ -181,7 +186,18 @@ export function editOption(
     targetOptionIndex: number,
     newOption: string
 ): Question[] {
-    return [];
+    // create variable to return
+    let optionQuestion: Question[];
+    
+    // if targetOption is -1, I will add the newOption to the end. Using the unpacking way
+    if (targetOptionIndex === -1) {
+        // map through all the questions and unpack them, I will only modify the option if the targetId === question.id using unpacking meathod
+        optionQuestion = questions.map((question : Question) => ({...question, options: targetId === question.id ? [...question.options, newOption] : question.options}))
+    }else{
+        // else I will add the newOption anywhere within the option array. By mapping the option array, I can pass in an option and index, when index === targetOptionIndex I can then change the option to newOption
+         optionQuestion = questions.map((question : Question) => ({...question, options: targetId === question.id ? question.options.map((option, index) => index === targetOptionIndex ? newOption : option) : question.options}))
+    }
+    return optionQuestion;
 }
 
 /***
@@ -195,5 +211,10 @@ export function duplicateQuestionInArray(
     targetId: number,
     newId: number
 ): Question[] {
-    return [];
+    let findQuestion = questions.filter((question : Question) => targetId === question.id)
+    let findQuestionIndex = questions.findIndex((question : Question) => targetId === question.id)
+    let newQuestion = duplicateQuestion(newId, findQuestion[0])
+    let newQuestions = questions.map((question : Question) => ({...question}))
+    newQuestions.splice(findQuestionIndex+1, 0, newQuestion)
+    return newQuestions;
 }
