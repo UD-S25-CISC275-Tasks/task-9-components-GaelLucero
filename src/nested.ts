@@ -2,8 +2,8 @@
 import { Answer } from "./interfaces/answer";
 "Task-7/task-7-nested-data-GaelLucero/src/interfaces/answer.ts"
 import { Question, QuestionType } from "./interfaces/question";
-import { addOption, duplicateQuestion, makeBlankQuestion } from "./objects";
-
+import { duplicateQuestion, makeBlankQuestion } from "./objects";
+// addOption, was not used.
 /**
  * Consumes an array of questions and returns a new array with only the questions
  * that are `published`.
