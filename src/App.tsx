@@ -7,7 +7,8 @@ import { TwoDice } from "./components/TwoDice";
 import { CycleHoliday } from "./components/CycleHoliday";
 import { Counter } from "./components/Counter";
 
-function App(): JSX.Element {
+// JSX.Element
+function App(): React.JSX.Element {
     return (
         <div className="App">
             <header className="App-header">
