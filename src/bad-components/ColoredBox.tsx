@@ -4,6 +4,11 @@ import { Button } from "react-bootstrap";
 export const COLORS = ["red", "blue", "green"];
 const DEFAULT_COLOR_INDEX = 0;
 
+interface ColorIndex {
+    setColorIndex: (newIndex: number) => void
+    colorIndex: number
+}
+
 function ChangeColor({setColorIndex, colorIndex}: ColorIndex): React.JSX.Element {
     // const [colorIndex, setColorIndex] = useState<number>(DEFAULT_COLOR_INDEX);
     return (
@@ -15,11 +20,6 @@ function ChangeColor({setColorIndex, colorIndex}: ColorIndex): React.JSX.Element
             Next Color
         </Button>
     );
-}
-
-interface ColorIndex {
-    setColorIndex: (newIndex: number) => void
-    colorIndex: number
 }
 
 function ColorPreview({colorIndex}:ColorIndex): React.JSX.Element {
