@@ -14,18 +14,29 @@ export function ChooseTeam(): React.JSX.Element {
     const [allOptions, setAllOptions] = useState<string[]>(PEOPLE);
     const [team, setTeam] = useState<string[]>([]);
 
-    function chooseMember() {
-        /*
+    function chooseMember(newMember: string) {
         if (!team.includes(newMember)) {
-            team.push(newMember);
+            // *Adding new member to team*
+            // Creating a new list by unpacking team array and adding new member
+            const newTeam = [...team, newMember];
+            // Using the set to updated the team with the new member
+            setTeam(newTeam);
+
+            // *removing new member from options*
+            // create a new array with out the new member
+            let removeMember = allOptions.filter((name: string) => name !== newMember);
+            // use the set to update the options, without the new member
+            setAllOptions(removeMember);
+
         }
-        */
     }
 
     function clearTeam() {
         /*
         team = [];
         */
+       setTeam([]);
+       setAllOptions(PEOPLE);
     }
 
     return (
@@ -36,7 +47,7 @@ export function ChooseTeam(): React.JSX.Element {
                     {allOptions.map((option: string) => (
                         <div key={option} style={{ marginBottom: "4px" }}>
                             Add{" "}
-                            <Button onClick={chooseMember} size="sm">
+                            <Button onClick={() => {chooseMember(option)}} size="sm">
                                 {option}
                             </Button>
                         </div>
